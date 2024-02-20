@@ -7,7 +7,7 @@ We get a list of Album objects reflecting the seed data.
 """
 
 def test_get_all_records(db_connection):
-    db_connection.seed('seeds/music_library.sql') # Seed our database with some test data
+    db_connection.seed('seeds/music_library_tables.sql') # Seed our database with some test data
     repository = AlbumRepository(db_connection) # Create a new AlbumRepository
     albums = repository.all() # Get all albums
     # Assert on the results
@@ -32,7 +32,7 @@ We get a single Album object reflecting the seed data.
 """
 
 def test_get_single_record(db_connection):
-    db_connection.seed("seeds/music_library.sql")
+    db_connection.seed("seeds/music_library_tables.sql")
     repository = AlbumRepository(db_connection)
 
     album = repository.find(3)
@@ -44,7 +44,7 @@ We get a new record in the database.
 """
 
 def test_create_record(db_connection):
-    db_connection.seed("seeds/music_library.sql")
+    db_connection.seed("seeds/music_library_tables.sql")
     repository = AlbumRepository(db_connection)
     
     repository.create(Album(13, 'Trompe le Monde', 1991, 1))
@@ -71,7 +71,7 @@ We remove a record from the database.
 """
 
 def test_delete_record(db_connection):
-    db_connection.seed("seeds/music_library.sql")
+    db_connection.seed("seeds/music_library_tables.sql")
     repository = AlbumRepository(db_connection)
 
     repository.delete(3)
