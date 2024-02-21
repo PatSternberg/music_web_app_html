@@ -9,6 +9,7 @@ psycopg = "*"
 flask = "*"
 playwright = "*"
 pytest-xprocess = "*"
+pytest-playwright = "*"
 
 [dev-packages]
 

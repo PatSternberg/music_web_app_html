@@ -1,8 +1,10 @@
 # file: app.py
-from lib.artist_repository import ArtistRepository
+from lib.album import Album
 from lib.album_repository import AlbumRepository
+from lib.artist import Artist
+from lib.artist_repository import ArtistRepository
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from lib.database_connection import get_flask_database_connection
 
 # Create a new Flask app
@@ -35,7 +37,7 @@ def get_albums():
     # We use `render_template` to send the user the file `albums/all.html`
     return render_template('albums/all.html', albums=albums)
 
-# GET /artist
+# GET /album
 # Returns the album with the supplied id as HTML
 # Try it:
 #   ; open http://localhost:5001/albums/1
@@ -46,6 +48,37 @@ def get_album(id):
     album = repository.find(id)
     # We use `render_template` to send the user the file `albums/show.html`
     return render_template('albums/show.html', album=album)
+
+# GET /books/new
+# Returns a form to create a new book
+@app.route('/albums/new', methods=['GET'])
+def get_new_album():
+    return render_template('albums/new.html')
+
+# POST /albums
+# Creates a new album
+@app.route('/albums', methods=['POST'])
+def create_album():
+    # Set up the database connection and repository
+    connection = get_flask_database_connection(app)
+    repository = AlbumRepository(connection)
+
+    # Get the fields from the request form
+    title = request.form['title']
+    release_year = request.form['release_year']
+
+    # Create an album object
+    album = Album(None, title, release_year, 1)
+
+    # Check for validity and if not valid, show the form again with errors
+    if not album.is_valid():
+        return render_template('albums/new.html', album=album, errors=album.generate_errors()), 400
+
+    # Save the book to the database
+    album = repository.create(album)
+
+    # Redirect to the book's show route to the user can see it
+    return redirect(f"/albums/{album.id}")
 
 # = Artist Routes =
 
