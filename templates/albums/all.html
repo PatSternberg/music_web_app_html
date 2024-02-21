@@ -1,0 +1,23 @@
+<!-- GET /albums -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      My Music Library
+    </title>
+  </head>
+  <body>
+    <h1>Albums</h1>
+    <ul>
+      <!--Use a for loop to format the album names-->
+      {% for album in albums %}
+        <li>
+          <a href="/albums/{{album.id}}">{{album.title}} - released: {{album.release_year}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <!-- ... -->
+    <!-- This is a link to another page. -->
+    <a href="/landing_page">Back to the landing page</a>
+  </body>
+</html>

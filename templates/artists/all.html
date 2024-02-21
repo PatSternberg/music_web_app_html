@@ -7,15 +7,17 @@
     </title>
   </head>
   <body>
-    <h1>Albums</h1>
+    <h1>Artists</h1>
     <ul>
       <!--Use a for loop to format the album names-->
-      {% for album in albums %}
+      {% for artist in artists %}
         <li>
-          <a href="/albums/{{album.id}}">{{album.title}} - released: {{album.release_year}}</a>
+          <a href="/artists/{{artist.id}}">{{artist.name}} - genre: {{artist.genre}}</a>
         </li>
       {% endfor %}
     </ul>
     <!-- ... -->
+    <!-- This is a link to another page. -->
+    <a href="/landing_page">Back to the landing page</a>
   </body>
 </html>
