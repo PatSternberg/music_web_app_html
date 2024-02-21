@@ -22,6 +22,21 @@ def get_albums():
     # We use `render_template` to send the user the file `albums.html`
     return render_template('albums.html', albums=albums)
 
+# GET /album_by_id
+# Returns the album with the supplied id as HTML
+# Try it:
+#   ; open http://localhost:5001/album_by_id
+@app.route('/album_by_id', methods=['GET'])
+def get_album_by_id():
+    id = request.args.get('id')
+    connection = get_flask_database_connection(app)
+    repository = AlbumRepository(connection)
+    found_album = repository.find(id)
+    albums = [found_album]
+    # We use `render_template` to send the user the file `albums.html`
+    return render_template('albums.html', albums=albums)
+
+
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database
 # if started in test mode.
