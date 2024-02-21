@@ -8,17 +8,14 @@
   </head>
   <body>
     <h1>Albums</h1>
-
-    <div>
-      Title: Doolittle
-      Released: 1989
-    </div>
-
-    <div>
-      Title: Surfer Rosa
-      Released: 1988
-    </div>
-
+    <ul>
+      <!--Use a for loop to format the album names-->
+      {% for album in albums %}
+        <li>
+          <a href="/albums/{{album.id}}">{{album.title}} - released: {{album.release_year}}</a>
+        </li>
+      {% endfor %}
+    </ul>
     <!-- ... -->
   </body>
 </html>
